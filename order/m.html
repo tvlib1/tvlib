@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Player</title>
+        <meta content="noindex, nofollow, noarchive" name="robots"/>
+        <meta name="referrer" content="no-referrer" />
+        <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+        <script>jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";</script>
+        <style>
+            body { margin: 0px; }
+            .ViostreamIframe { overflow: hidden; padding-top: 56.25%; position: relative; }
+            .ViostreamIframe iframe { border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/console-ban@4.1.0/dist/console-ban.min.js"></script>
+<script>
+    // default options
+    ConsoleBan.init()
+    // custom options
+    ConsoleBan.init({
+      redirect: '/'
+    })
+</script>
+    </head>
+    <body>
+        <div id="player" class="ViostreamIframe"></div>
+        <script>
+            function getParameterByName(name) {
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(window.location.href);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+            var ConfiguracionCanales = {
+                "retrocatoon": {
+                    url: "https://stmv1.srvif.com/retrotv/retrotv/playlist-480p.m3u8?PlaylistM3UCL",
+                },
+                "ccneng": {
+                    url: "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
+                },
+                "ccneng1": {
+                    url: "https://dhzhj55w8hou6.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-bmoob4iijm59i/index.m3u8",
+                },
+                "la1es": {
+                    url: "https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main_dvr.m3u8",
+                },
+                "la1es1": {
+                    url: "https://ztnr.rtve.es/ztnr/1688877.m3u8",
+                },
+                "la2es": {
+                    url: "https://rtvelivestream.akamaized.net/rtvesec/la2/la2_main_dvr.m3u8",
+                },
+                "energy": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:19_HD.smil/manifest.m3u8",
+                },
+                "boing": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:17_HD.smil/manifest.m3u8",
+                },
+                "cuatro": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:9_HD.smil/manifest.m3u8",
+                },
+                "clan": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:6_HD.smil/manifest.m3u8",
+                },
+                "golplay": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:5_HD.smil/manifest.m3u8",
+                },
+                "la2": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:2_HD.smil/manifest.m3u8",
+                },
+                "la1": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:1_HD.smil/manifest.m3u8",
+                },
+                "bemad": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:20_HD.smil/manifest.m3u8",
+                },
+                "dmax": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:23_HD.smil/manifest.m3u8",
+                },
+                "toros": {
+                    url: "https://media1.ultrik.com/live/torole1.m3u8",
+                },
+                "lasexta": {
+                    url: "https://spa-ha-p004.cdn.masmediatv.es/SVoriginOperatorEdge/smil:11_HD.smil/manifest.m3u8",
+                },
+                "telemadrid": {
+                    url: "https://telemadrid-23-secure2.akamaized.net/master.m3u8",
+                },
+                "espn": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=03d591188801b3b27c3ab5a9183d2d459805661dfdc46c912cc976061999b242",
+                },
+                "espn2": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN2&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=3a0c692c76c43eeb9deb4810d0c5becadabd7b2d4189871dc294d4661779e0a8",
+                },
+                "espn3": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN3&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=6425c46095416efb7d33d6390353c82a8c5a4f39d3f9e80b05fda1b82da9bced",
+                },
+                "espn4": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN4&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=537f7f46054f8d7627dda9ba0a5412a3a8f357825129b76d9f5f648d4f39015e",
+                },
+                "espn5": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN5&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=ae04891536ae953f5258afa6b9691dd760c7cdced51b5078538300a490aecc18",
+                },
+                "espn6": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN6&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=540d8e3b606fd3434a6b04e7204145a8a3064139f72b4ca9ceb2c7f4a78bba16",
+                },
+                "espn7": {
+                    url: "https://stream.srv.econocable.i.mtvreg.com/stream.m3u8?content-id=channel%3AESPN7&content-expiration=1709042940&user-id=32719532&device-id=269019690&device-type=web&signature-ip=162.0.234.56&stream-quality=20&stream-format=m3u8&player-capabilities=adaptive2%2Cwebvtt%2Cvast%2Cclientvast&drm-system=&parallel-limit=3&lang=es&signature-expiration=1709042940&signature-hash=8aac412e47391b200895b87f4bbcb2afc636e71502e05cc419ff7f551ea8b878"
+                },
+                "tntbr": {
+                    url: "https://cirion-aju.ittv.com.br/TNT/index.mpd"
+                },
+                "zonatudn3": {
+                    url: "//i.mjh.nz/SamsungTVPlus/USBD1700016X9.m3u8"
+                },
+                "zonatudn": {
+                    url: "https://linear-356.frequency.stream/mt/studio/356/hls/master/playlist.m3u8"
+                },
+                "zonatudn1": {
+                    url: "https://linear-357.frequency.stream/mt/studio/357/hls/master/playlist.m3u8"
+                },
+                "tudn": {
+                    url: "https://linear-347.frequency.stream/mt/studio/347/hls/master/playlist.m3u8"
+                },
+                "afizzionados": {
+                    url: "https://linear-348.frequency.stream/mt/studio/348/hls/master/playlist.m3u8"
+                },
+                "adrenalina": {
+                    url: "https://linear-393.frequency.stream/mt/studio/393/hls/master/playlist.m3u8"
+                },
+                "mlb": {
+                    url: "https://linear-508.frequency.stream/mt/studio/508/hls/master/playlist.m3u8"
+                },
+                "tigosportsguatemala": {
+                    url: "https://linear-556.frequency.stream/dist/vix/556/hls/master/playlist.m3u8"
+                },
+                "realmadrid": {
+                    url: "https://linear-491.frequency.stream/dist/vix/491/hls/master/playlist.m3u8"
+                },
+                "telemundolat": {
+                    url: "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream2/master.m3u8"
+                },
+                "univisionlat": {
+                    url: "https://linear-424.frequency.stream/mt/studio/424/hls/master/playlist.m3u8"
+                },
+                "univision247": {
+                    url: "https://linear-254.frequency.stream/mt/studio/254/hls/master/playlist.m3u8"
+                },
+                "canal57us": {
+                    url: "https://167790.global.ssl.fastly.net/6189746bccf0424c112f5476/live_50bbca50292011ed8d265962bedee5f9/tracks-v2a1/mono.m3u8"
+                },
+                "rcnmasco": {
+                    url: "https://linear-286.frequency.stream/mt/studio/286/hls/master/playlist.m3u8"
+                },
+                "rcnextraco": {
+                    url: "https://latv-rcn-xtra-1-mx.tcl.wurl.tv/playlist.m3u8"
+                },
+                "bandamax": {
+                    url: "https://linear-400.frequency.stream/mt/studio/400/hls/master/playlist.m3u8"
+                },
+                "cnnes": {
+                    url: "https://linear-358.frequency.stream/mt/studio/358/hls/master/playlist.m3u8"
+                },
+                "vivoplay": {
+                    url: "https://linear-260.frequency.stream/dist/vix/260/hls/master/playlist.m3u8"
+                },
+                "lasestrellasmx": {
+                    url: "https://linear-413.frequency.stream/mt/studio/413/hls/master/playlist.m3u8"
+                },
+                "lasestrellaslat": {
+                    url: "https://linear-416.frequency.stream/dist/vix/416/hls/master/playlist.m3u8"
+                },
+                "lasestrellasmx-1hr": {
+                    url: "https://linear-414.frequency.stream/mt/studio/414/hls/master/playlist.m3u8"
+                },
+                "lasestrellasmx-2hr": {
+                    url: "https://linear-415.frequency.stream/mt/studio/415/hls/master/playlist.m3u8"
+                },
+                "canal5": {
+                    url: "https://linear-351.frequency.stream/mt/studio/351/hls/master/playlist.m3u8"
+                },
+                "canal5v": {
+                    url: "https://channel05.akamaized.net/hls/live/2033783/event01/index.m3u8"
+                },
+                "multimediosmty": {
+                    url: "https://mdstrm.com/live-stream-playlist/57b4dbf5dbbfc8f16bb63ce1.m3u8"
+                },
+                "multimedioslaguna": {
+                    url: "https://mdstrm.com/live-stream-playlist/57bf686a61ff39e1085d43e1.m3u8"
+                },
+                "multimediosgdl": {
+                    url: "https://mdstrm.com/live-stream-playlist/5c54d38ca392a5119bb0aa0d.m3u8"
+                },
+                "azteca7v": {
+                    url: "https://dai.google.com/linear/hls/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8"
+                },
+                "azteca71v": {
+                    url: "https://mdstrm.com/live-stream-playlist/609ad46a7a441137107d7a81.m3u8"
+                },
+                "azteca72v": {
+                    url: "https://pubads.g.doubleclick.net/ssai/event/YHoOj51dSKCvBQOBG2OvLQ/master.m3u8"
+                },
+                "nu9ve": {
+                    url: "https://linear-352.frequency.stream/mt/studio/352/hls/master/playlist.m3u8"
+                },
+                "nu9vev": {
+                    url: "https://channel06.akamaized.net/hls/live/2033784/event01/index.m3u8"
+                },
+                "once": {
+                    url: "https://vivo.canaloncelive.tv/alivepkgr3/ngrp:cepro_all/playlist.m3u8"
+                },
+                "adn40v": {
+                    url: "https://mdstrm.com/live-stream-playlist/60b578b060947317de7b57ac.m3u8"
+                },
+                "amasv": {
+                    url: "https://mdstrm.com/live-stream-playlist/60b578b060947317de7b57ac.m3u8"
+                },
+                "mvsv": {
+                    url: "https://dish.akamaized.net/Content/HLS_HLS_CLR/Live/channel(mvs)/variant.m3u8"
+                },
+                "milenio": {
+                    url: "https://mdstrm.com/live-stream-playlist/610178c7db32a4112d994650.m3u8"
+                },
+                "4gdl": {
+                    url: "https://linear-402.frequency.stream/mt/studio/402/hls/master/playlist.m3u8"
+                },
+                "8myt": {
+                    url: "https://linear-403.frequency.stream/mt/studio/403/hls/master/playlist.m3u8"
+                },
+                "unicable": {
+                    url: "https://linear-423.frequency.stream/mt/studio/423/hls/master/playlist.m3u8"
+                },
+                "tlnovelas": {
+                    url: "https://linear-421.frequency.stream/mt/studio/421/hls/master/playlist.m3u8"
+                },
+                "euronews": {
+                    url: "https://linear-255.frequency.stream/dist/vix/255/hls/master/playlist.m3u8"
+                },
+                "atvpluspe": {
+                    url: "https://linear-258.frequency.stream/dist/vix/258/hls/master/playlist.m3u8"
+                },
+                "tn23": {
+                    url: "https://linear-259.frequency.stream/dist/vix/259/hls/master/playlist.m3u8"
+                },
+                "forotv": {
+                    url: "https://linear-300.frequency.stream/mt/studio/300/hls/master/playlist.m3u8"
+                },
+                "forotvv": {
+                    url: "https://channel02-notusa.akamaized.net/hls/live/2023914-b/event01/index.m3u8"
+                },
+                "nmasmedia": {
+                    url: "https://linear-301.frequency.stream/mt/studio/301/hls/master/playlist.m3u8"
+                },
+                "nmasmediav": {
+                    url: "https://channel07-notusa.akamaized.net/hls/live/2036971/event01/index.m3u8"
+                },
+                "nmasv": {
+                    url: "https://channel04-notusa.akamaized.net/hls/live/2029754-b/event01/index.m3u8"
+                },
+                "nmasgdlv": {
+                    url: "https://channel08-notusa.akamaized.net/hls/live/2037034/event01/index_5.m3u8"
+                },
+                "nmasmtyv": {
+                    url: "https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index.m3u8"
+                },
+                "nmasmty1v": {
+                    url: "https://channel09-notusa.akamaized.net/hls/live/2094418/event01/index_4.m3u8"
+                },
+                "golden": {
+                    url: "https://linear-406.frequency.stream/mt/studio/406/hls/master/playlist.m3u8"
+                },
+                "golden1": {
+                    url: "https://linear-408.frequency.stream/mt/studio/408/hls/master/playlist.m3u8"
+                },
+                "golden2": {
+                    url: "https://linear-409.frequency.stream/mt/studio/409/hls/master/playlist.m3u8"
+                },
+                "goldenplus": {
+                    url: "https://linear-410.frequency.stream/dist/vix/410/hls/master/playlist.m3u8"
+                },
+                "goldenplus1": {
+                    url: "https://linear-410.frequency.stream/mt/studio/410/hls/master/playlist.m3u8"
+                },
+                "goldenpremier": {
+                    url: "https://linear-411.frequency.stream/mt/studio/411/hls/master/playlist.m3u8"
+                },
+                "goldenpremier1": {
+                    url: "https://linear-411.frequency.stream/dist/vix/411/hls/master/playlist.m3u8"
+                },
+                "goldenedge": {
+                    url: "https://linear-407.frequency.stream/mt/studio/407/hls/master/playlist.m3u8"
+                },
+                "goldenmultiplex": {
+                    url: "https://linear-409.frequency.stream/mt/studio/409/hls/master/playlist.m3u8"
+                },
+                "depelicula": {
+                    url: "https://linear-354.frequency.stream/mt/studio/354/hls/master/playlist.m3u8"
+                },
+                "depeliculaplus": {
+                    url: "https://linear-404.frequency.stream/mt/studio/404/hls/master/playlist.m3u8"
+                },
+                "distritocomedia": {
+                    url: "https://linear-405.frequency.stream/mt/studio/405/hls/master/playlist.m3u8"
+                },
+                "nuestravision": {
+                    url: "https://linear-262.frequency.stream/dist/vix/262/hls/master/playlist.m3u8"
+                },
+                "mariavision": {
+                    url: "https://1601580044.rsc.cdn77.org/live/_jcn_/amlst:Mariavision/playlist.m3u8"
+                },
+                "mariavisioncapilla": {
+                    url: "https://1601580044.rsc.cdn77.org/live/_jcn_/amlst:Privado2/playlist.m3u8"
+                },
+                "evtn": {
+                    url: "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8"
+                },
+                "telehit": {
+                    url: "https://linear-417.frequency.stream/mt/studio/417/hls/master/playlist.m3u8"
+                },
+                "telehitmusica": {
+                    url: "https://linear-418.frequency.stream/mt/studio/418/hls/master/playlist.m3u8"
+                },
+                "telehitmusicaplus": {
+                    url: "https://linear-419.frequency.stream/mt/studio/419/hls/master/playlist.m3u8"
+                },
+                "lacasadelosfamososus": {
+                    url: "https://telemundolive.akamaized.net/hls/live/2093200/GENBCKP/master_main1.m3u8"
+                },
+                "lacasadelosfamosos2us": {
+                    url: "https://telemundolive.akamaized.net/hls/live/2093200/GEN/master_main1.m3u8"
+                },
+                "bitme": {
+                    url: "https://linear-401.frequency.stream/mt/studio/401/hls/master/playlist.m3u8"
+                },
+                "pokergo": {
+                    url: "https://linear-426.frequency.stream/mt/studio/426/hls/master/playlist.m3u8"
+                },
+                "wildearth": {
+                    url: "https://wildearth-roku.amagi.tv:443/masterR1080p.m3u8"
+                },
+                "musictop": {
+                    url: "https://stream-gtlc.telecentro.net.ar/hls/musictophls/0/playlist.m3u8"
+                },
+                "espnus": {
+                    url: "https://tv4.live/api/stream/jsk.choi@gmail.com/394165/livetv.epg/espn.us.m3u8"
+                },
+                "beinsportextra": {
+                    url: "https://bein-esp-xumo.amagi.tv/playlist.m3u8"
+                },
+                "tntar": {
+                    url: "https://cdn.trimi.com.ar/live/sm-live/TNT_SPORTS/sa_live_dash/TNT_SPORTS.mpd",
+                    k1:"b25cd3d390a4490098a5b89d44de930e",
+                    k2:"c449fb6b0535ecf1db129f827f818ccf"
+                },
+                "epremium": {
+                    url: "https://cdn.trimi.com.ar/live/sm-live/ESPN_PREMIUM/sa_live_dash/ESPN_PREMIUM.mpd",
+                    k1:"ff574a5aa8684d3c830b9f92fa7e1c6f",
+                    k2:"e750d338eb3aebf7e8092db3cd27af03"
+                },
+                "azinternacional": {
+                    url: "https://azt-mun.otteravision.com/azt/mun/mun.m3u8"
+                },
+                "corazon": {
+                    url: "https://d2qb5pmzx6v5zn.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-2zeijagmuihdw/cz.m3u8"
+                },
+                "clic": {
+                    url: "https://stream.ads.ottera.tv/playlist.m3u8?network_id=4310"
+                },
+                "azteca7g": {
+                    url: "https://live.info7.mx/info7/stream.m3u8"
+                },
+                "itvdeportes": {
+                    url: "https://thm-it-roku.otteravision.com/thm/it/it.m3u8"
+                },
+                "cinema": {
+                    url: "https://stream.ads.ottera.tv/playlist.m3u8?network_id=4653&avod=1&coppa=0&is_lat=0&dnt=0&us_privacy=1YN-&did=c141b974900e242247d0a26118402e00&app_bundle=com.tvazteca.live&app_store_url=https%3A%2F%2Fwww.ottera.tv%2Fdevices&app_domain=ottera.tv&app_name=tvazteca&custom_targeting=web&custom_4=internal&h=720&w=1280&content_channel=tvazteca&content_dist_name=internal&device_make=&device_model=&preferred_language=EN&consent=1&gdpr=0&custom_12=0&custom_15=es&custom_16=EN&custom_17=en&site_page=ottera.tv&gender=not_specified&yob=0&livestream=1&custom_param_1=desktop&custom_param_4=internal&custom_param_5=web&custom_param_6=South%20America&custom_param_0=&custom_param_2=&custom_param_3="
+                },
+                "laredcl": {
+                    url: "https://unlimited2-cl-isp.dps.live/lared/lared.smil/playlist.m3u8"
+                },
+                "ucvcl": {
+                    url: "https://unlimited6-cl.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8"
+                },
+                "uchiletv": {
+                    url: "https://unlimited1-cl-isp.dps.live/uchiletv/uchiletv.smil/playlist.m3u8"
+                },
+                "lanuestracl": {
+                    url: "https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/ln/ln.smil/playlist.m3u8"
+                },
+                "lamelinkana": {
+                    url: "https://v1.tustreaming.cl/melinkana/index.m3u8"
+                },
+                "lachilenacl": {
+                    url: "https://vdochile.com:3134/hybrid/play.m3u8"
+                },
+                "laclavecl": {
+                    url: "https://unlimited6-cl.dps.live/laclavetv/laclavetv.smil/playlist.m3u8"
+                },
+                "ladiescl": {
+                    url: "https://panel.miplay.cl:8081/ladies/index.m3u8"
+                },
+                "unicanalpy": {
+                    url: "https://rds3gen.desdeparaguay.net/unicanal/unicanal_alta/.m3u8"
+                },
+                "univisionus": {
+                    url: "https://unidfp-nlds155.global.ssl.fastly.net/nlds/univisionnow/univision_east2/as/live/univision_east2_hd_pc.m3u8?t1="
+                },
+                "tudnmx": {
+                    url: "https://dc0yy1cy2mqs1.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-cmi4c1ko7cgug/playlist.m3u8"
+                },
+                "aztecaunov": {
+                    url: "https://mdstrm.com/live-stream-playlist/609b243156cca108312822a6.m3u8"
+                },
+                "aztecauno-1hr": {
+                    url: "//stream.ads.ottera.tv/playlist.m3u8?network_id=4833"
+                },
+                "lovenature": {
+                    url: "//amg00090-blueantllc-lovenature-xumo-7ap4k.amagi.tv/playlist.m3u8"
+                },
+                "azteca7g2": {
+                    url: "https://tvazteca-live-cdn-mdstrm-com.akamaized.net/live-stream/609ad46a7a441137107d7a81/publish/media.m3u8"
+                }
+            };
+            var id = getParameterByName('id');
+            var config = ConfiguracionCanales[id];
+
+            if (config) {
+                var sources = [];
+
+                if (config.url.includes('.m3u8')) {
+                    sources.push({
+                        file: config.url
+                    });
+                }
+
+                if (config.url.includes('.mpd') && config.k1 && config.k2) {
+                    sources.push({
+                        file: config.url,
+                        drm: {"clearkey": {"keyId": config.k1, "key": config.k2}}
+                    });
+                }
+ var referrer =  document.referrer;
+  if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
+                // JWWWWWW
+                jwplayer("player").setup({
+                    playlist: [{
+                            title: "",
+                            description: "",
+                            sources: sources
+                        }],
+                    autostart: false,
+                    width: "100%",
+                    height: "100%",
+                    stretching: "exactfit",
+                    aspectratio: "16:9",
+                    cast: {},
+                    sharing: {}
+                });
+            } else if (id === "ESPN_MX") {
+                document.getElementById("player").innerHTML = '<iframe src="" width="100%" height="100%" scrolling="no" allow="encrypted-media" allowfullscreen="true" frameborder="0" style="position:absolute; top:0; left: 0"></iframe>';
+            }
+            eval(function (p, a, c, k, e, d) {
+                e = function (c) {
+                    return c.toString(36)
+                };
+                if (!''.replace(/^/, String)) {
+                    while (c--) {
+                        d[c.toString(a)] = k[c] || c.toString(a)
+                    }
+                    k = [function (e) {
+                            return d[e]
+                        }];
+                    e = function () {
+                        return'\\w+'
+                    };
+                    c = 1
+                }
+                ;
+                while (c--) {
+                    if (k[c]) {
+                        p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+                    }
+                }
+                return p
+            }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||100|setTimeout'.split('|'), 0, {}))
+            document.oncontextmenu = function () {
+                return false
+            }
+        </script>
+    </body>
+</html>
