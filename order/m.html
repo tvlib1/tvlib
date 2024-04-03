@@ -424,6 +424,8 @@
                     url: "https://tvazteca-live-cdn-mdstrm-com.akamaized.net/live-stream/609ad46a7a441137107d7a81/publish/media.m3u8"
                 }
             };
+             var referrer =  document.referrer;
+  if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
             var id = getParameterByName('id');
             var config = ConfiguracionCanales[id];
 
@@ -442,8 +444,6 @@
                         drm: {"clearkey": {"keyId": config.k1, "key": config.k2}}
                     });
                 }
- var referrer =  document.referrer;
-  if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
                 // JWWWWWW
                 jwplayer("player").setup({
                     playlist: [{
