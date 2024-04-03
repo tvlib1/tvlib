@@ -40,15 +40,9 @@
                     k1: "1b53a65190403c58a5786ff61b5ba5b7",
                     k2: "4f5d2945cef2196ecb53eb47b00dd222"
                 }
-                
-                
-                
-                
-
-
-
             };
-
+var referrer =  document.referrer;
+  if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
             var id = getParameterByName('id');
             var config = ConfiguracionCanales[id];
 
@@ -67,8 +61,6 @@
                         drm: {"clearkey": {"keyId": config.k1, "key": config.k2}}
                     });
                 }
- var referrer =  document.referrer;
-  if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
                 // JWWWWWW
                 jwplayer("player").setup({
                     playlist: [{
