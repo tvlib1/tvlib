@@ -56,7 +56,7 @@ var getLang = getParameterByName('lang');
 <body>
  <div id="loading-overlay">
   <div id="loading-message">Cargando... Por favor, espere.</div>
-  <div id="loading-info">El reproductor puede tardar hasta más de 1 minuto.</div>
+  <div id="loading-info">El reproductor puede tardar hasta mas de 1 minuto.</div>
 </div>
 <div id="player"></div>
 <script>
@@ -78,7 +78,7 @@ var getLang = getParameterByName('lang');
   var referrer =  document.referrer;
   if((referrer.indexOf("tvlibre.org") > -1) || /iPad|iPod|BlackBerry|IEMobile|webOS|Opera Mini/i.test(navigator.userAgent)) {
   var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "/order/cv.json?" + Math.floor(Math.random() * 9000 + 1000).toString(), true);
+  xhttp.open("GET", "/order/vc.json?" + Math.floor(Math.random() * 9000 + 1000).toString(), true);
   xhttp.send();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
