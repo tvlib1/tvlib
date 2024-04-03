@@ -783,7 +783,7 @@
                                         var randomURL = mt[Math.floor(Math.random() * mt.length)];
                                         var newUrl = randomURL + modifiedPart + "&title=" + encodeURIComponent(evento.title);
                                         var encodedNewUrl = btoa(newUrl);
-                                        var finalEncodedUrl = "/order/eventos/?r=" + encodeURIComponent(encodedNewUrl) + "&v=star";
+                                        var finalEncodedUrl = "/order/eventos?r=" + encodeURIComponent(encodedNewUrl) + "&v=star";
                                     } else {
                                         finalEncodedUrl = "/star-plus";
                                     }
